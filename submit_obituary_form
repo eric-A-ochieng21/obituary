@@ -1,0 +1,4 @@
+// Serve the obituary form
+app.get('/submit_obituary_form', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'obituary_form.html'));
+});

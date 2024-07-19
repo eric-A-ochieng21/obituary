@@ -1,0 +1,14 @@
+// Submit Obituary Form
+app.post('/submit_obituary', (req, res) => {
+    const { name, date_of_birth, date_of_death, content, author } = req.body;
+    const slug = name.toLowerCase().replace(/\s+/g, '-');
+    const sql = 'INSERT INTO obituaries (name, date_of_birth, date_of_death, content, author, slug) VALUES (?, ?, ?, ?, ?, ?)';
+    connection.query(sql, [name, date_of_birth, date_of_death, content, author, slug], (err, result) => {
+        if (err) {
+            console.error('Error submitting obituary: ' + err.stack);
+            res.status(500).send('Error submitting obituary.');
+            return;
+        }
+        res.redirect('/view_obituaries'); // Redirect to view obituaries after submission
+    });
+});
